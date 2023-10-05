@@ -1,2 +1,2 @@
-# TRMD
-File creato giusto per importare la repository su Replit
+Repository dedicata al corso di Tecniche di Modelizzazione e Rappresentazione Dati (TRMD).
+Work in progress.
