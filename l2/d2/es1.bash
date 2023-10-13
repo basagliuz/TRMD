@@ -1,4 +1,4 @@
 #!/bin/bash
-for file in *; do
-	echo $file
-done; unset $file 
+for i in $(ls); do
+	echo $i
+done;
