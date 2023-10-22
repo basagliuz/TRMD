@@ -62,7 +62,7 @@ mx = max(data[2])
 
 # Seleziono il numero di classi e creo due vettori contenti gli estremi inf/sup.
 
-nc = 3
+nc = 15
 d = (mx - mn)/nc
 inf = []
 sup = []
@@ -71,24 +71,25 @@ for i in range(nc):
   sup = sup + [(i + 1)*d]
 
 # Plotto un grafico per ciascuna classe. 
+# Arrotondo il numero di cifre per gli array da usare come legenda.
+
+inf_l = np.around(inf, decimals = 1)
+sup_l = np.around(sup, decimals = 1)
 
 for i in range(nc):
-  for j in range(data[2].shape[0]):
-    aj = data[2][j]
-    if aj >= inf[i] and aj <= sup[i]:
-      mpl.scatter(b, m, marker = '.', s = 5, label = ('{} Gyr - {}                                                          Gyr'.format(inf[i], sup[i])))
-    else:
-      continue
+  id_i = np.where(data[2] <= sup[i])
+  id_s = np.where(data[2][id_i] >= inf[i])
+  mpl.scatter(data[1, id_s], data[0, id_s], marker = '.', s = 5, label = ("{} Gyr - {} Gyr" .format(inf_l[i], sup_l[i])))
 
 # Imposto l'intervallo di visualizzazione e dò un nome agli assi. Creo una legenda.
 
 mpl.xlim(-0.1, 1)
 mpl.ylim(8.5, -4)
 
-mpl.xlabel('b-y')
-mpl.ylabel('M_V')
+mpl.xlabel('b-y', size = 'small')
+mpl.ylabel('$M_V$', size = 'small')
 
-mpl.legend()
+mpl.legend(fontsize = 'x-small')
 
 # Salvo la figura ottenuta in questo modo.
 
