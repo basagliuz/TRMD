@@ -11,6 +11,7 @@
 
 import numpy as np
 import matplotlib.pyplot as mpl
+import seaborn as sb
 
 # Importo i dati in tre array.
 
@@ -30,13 +31,15 @@ a = data[2]
 mpl.scatter(b, m, c = a, cmap = 'winter_r', marker = '.', s = 5)
 k = mpl.scatter(b, m, c = a, cmap = 'winter_r', marker = '.', s = 5)
 
-# Imposto l'intervallo di visualizzazione e dò un nome agli assi.
+# Imposto l'intervallo di visualizzazione e personalizzo agli assi.
 
 mpl.xlim(-0.1, 1)
 mpl.ylim(8.5, -4)
 
-mpl.xlabel('b-y')
-mpl.ylabel('M_V')
+mpl.xlabel('b-y', size = 'small')
+mpl.ylabel('$M_V$', size = 'small')
+
+mpl.tick_params(labelsize = 'x-small')
 
 # Aggiungo una colorbar con il comando colorbar e aggiungo un label.
 # La scala dei colori è data da 'age_parent'.
@@ -53,16 +56,20 @@ mpl.clf()
 # ========================== 
 
 
-# II. Creo uno scatter con varie classi di colori
+# II. Creo uno scatter con varie classi di colori.
+# Creo un array con quanti colori voglio. Uso seaborn.
+
+nc = 25
+palette = sb.color_palette('gist_ncar', nc)
+
 # Devo usare l'array 'data' per associare a ciascuna coppia (m, b) il colore giusto.
 # Cerco minimo e massimo del vettore 'age_parent' (data[2]).
 
 mn = min(data[2])
 mx = max(data[2])
 
-# Seleziono il numero di classi e creo due vettori contenti gli estremi inf/sup.
+# Dal numero di classi creo due vettori contenti gli estremi inf/sup.
 
-nc = 15
 d = (mx - mn)/nc
 inf = []
 sup = []
@@ -79,9 +86,9 @@ sup_l = np.around(sup, decimals = 1)
 for i in range(nc):
   id_i = np.where(data[2] <= sup[i])
   id_s = np.where(data[2][id_i] >= inf[i])
-  mpl.scatter(data[1, id_s], data[0, id_s], marker = '.', s = 5, label = ("{} Gyr - {} Gyr" .format(inf_l[i], sup_l[i])))
+  mpl.scatter(data[1, id_s], data[0, id_s], color = palette [i], marker = '.', s = 5, label = ("{} Gyr - {} Gyr" .format(inf_l[i], sup_l[i])))
 
-# Imposto l'intervallo di visualizzazione e dò un nome agli assi. Creo una legenda.
+# Imposto l'intervallo di visualizzazione e configuro agli assi. Creo una legenda.
 
 mpl.xlim(-0.1, 1)
 mpl.ylim(8.5, -4)
@@ -89,7 +96,9 @@ mpl.ylim(8.5, -4)
 mpl.xlabel('b-y', size = 'small')
 mpl.ylabel('$M_V$', size = 'small')
 
-mpl.legend(fontsize = 'x-small')
+mpl.tick_params(labelsize = 'x-small')
+
+mpl.legend(fontsize = 'xx-small')
 
 # Salvo la figura ottenuta in questo modo.
 
