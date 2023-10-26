@@ -60,7 +60,7 @@ mpl.clf()
 # Creo un array con quanti colori voglio. Uso seaborn.
 
 nc = 25
-palette = sb.color_palette('gist_ncar', nc)
+palette = sb.color_palette('coolwarm', nc)
 
 # Devo usare l'array 'data' per associare a ciascuna coppia (m, b) il colore giusto.
 # Cerco minimo e massimo del vettore 'age_parent' (data[2]).
